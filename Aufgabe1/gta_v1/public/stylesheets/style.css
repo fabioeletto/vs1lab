@@ -47,7 +47,50 @@ a {
 /* ### TODO ### Styles for other HTML elements */
 
 /* ... your code here ... */
+header > img {
+  width: 50px;
+  height: 50px;
+}
 
+input {
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 0.5rem;
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+fieldset {
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 0.5rem;
+}
+
+button {
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 0.5rem;
+  display: block;
+}
+
+span {
+  display: block;
+}
+
+form {
+  width: 100%;
+}
+
+ul > li {
+  font-size: medium;
+  margin-bottom: 0.5rem;
+  list-style: none;
+  padding: 1rem;
+  background-color: var(--background-color);
+  color: var(--link-color);
+  border: 1px solid var(--border-color);
+}
 
 /* Grid styles (no changes required) */
 
@@ -110,28 +153,81 @@ a {
 /* ### TODO ### Styles for Header Component */
 
 /* ... your code here ... */
+header {
+  background-color: var(--background-color);
+  padding: 3rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 
 /* ### TODO ### Styles for Main Component */
 
 /* ... your code here ... */
-
-
-/* ### TODO ### Styles for Tagging component */
-
-/* ... your code here ... */
-
+main {
+  padding: 3rem;
+  flex: 1;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
+.main__discovery {
+  width: 100%;
+}
+
+.discovery__wrapper {
+  margin-top: 0.5rem;
+}
 
 
 /* ### TODO ### Styles for Footer Component */
 
 /* ... your code here ... */
+footer {
+  background-color: var(--background-color);
+  padding: 3rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: left;
+}
 
 
 /* ### TODO ### Media Queries */
 
 /* ... your code here ... */
+@media (max-width: 1200px) {
+  .row {
+    flex-direction: column;
+  }
+
+  header {
+    flex-direction: column;
+  }
+
+  .discovery__map {
+    height: auto;
+    width: 100%;
+  }
+
+  .discovery__map > img {
+    width: 100%;
+  }
+
+  .col-1,
+  .col-2,
+  .col-3,
+  .col-4,
+  .col-5,
+  .col-6,
+  .col-7,
+  .col-8,
+  .col-9,
+  .col-10,
+  .col-11,
+  .col-12 {
+    width: 100%;
+  }
+}
