@@ -26,6 +26,14 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
+const GeoTagExamples = require('../models/geotag-examples');
+
+const store = new GeoTagStore();
+GeoTagExamples.tagList.forEach(([name, latitude, longitude, hashtag]) =>
+  store.addGeoTag(new GeoTag(latitude, longitude, name, hashtag))
+);
+const DEFAULT_RADIUS = 0.1;
+
 
 // App routes (A3)
 
@@ -38,8 +46,43 @@ const GeoTagStore = require('../models/geotag-store');
  * As response, the ejs-template is rendered without geotag objects.
  */
 
-router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+router.get('/', (_, res) => {
+  res.render('index', { tagList: [], latitude: "", longitude: ""  })
+});
+
+router.post("/tagging", (req, res) => {
+  const { name, hashtag, latitude, longitude } = req.body;
+  store.addGeoTag(new GeoTag(latitude, longitude, name, hashtag));
+  const tags = store.getNearbyGeoTags(latitude, longitude, DEFAULT_RADIUS);
+  res.render("index", {
+    tagList: tags,
+    latitude: latitude,
+    longitude: longitude,
+  });
+});
+
+router.post("/discovery", (req, res) => {
+  const { searchTerm, hiddenLatitude, hiddenLongitude } = req.body;
+  let tags = [];
+  if (searchTerm) {
+    tags = store.searchNearbyGeoTags(
+      hiddenLatitude,
+      hiddenLongitude,
+      DEFAULT_RADIUS,
+      searchTerm
+    );
+  } else {
+    tags = store.getNearbyGeoTags(
+      hiddenLatitude,
+      hiddenLongitude,
+      DEFAULT_RADIUS
+    );
+  }
+  return res.render("index", {
+    tagList: tags,
+    latitude: hiddenLatitude,
+    longitude: hiddenLongitude,
+  });
 });
 
 // API routes (A4)
@@ -52,11 +95,26 @@ router.get('/', (req, res) => {
  * (http://expressjs.com/de/4x/api.html#req.query)
  *
  * As a response, an array with Geo Tag objects is rendered as JSON.
- * If 'searchterm' is present, it will be filtered by search term.
+ * If 'searchTerm' is present, it will be filtered by search term.
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 
 // TODO: ... your code here ...
+router.get('/api/geotags', (req, res) => {
+  const { searchTerm, latitude, longitude } = req.query;
+  let tags = store.getGeoTags();
+  if (searchTerm && latitude && longitude) {
+    tags = store.searchNearbyGeoTags(latitude, longitude, DEFAULT_RADIUS, searchTerm);
+  }
+  if (latitude && longitude) {
+    tags = store.getNearbyGeoTags(latitude, longitude, DEFAULT_RADIUS);
+  }
+  if (searchTerm) {
+    tags = store.searchGeoTags(searchTerm);
+  }
+
+  res.json(tags);
+});
 
 
 /**
@@ -71,6 +129,13 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post('/api/geotags', (req, res) => {
+  const { name, latitude, longitude, hashtag } = req.body;
+  const newTag = new GeoTag(latitude, longitude, name, hashtag);
+  store.addGeoTag(newTag);
+  res.location(`/api/geotags/${newTag.id}`);
+  res.status(201).json(newTag);
+});
 
 
 /**
@@ -84,6 +149,14 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.get('/api/geotags/:id', (req, res) => {
+  const tag = store.getGeoTagById(req.params.id);
+  if (tag) {
+    res.status(200).json(tag);
+  } else {
+    res.status(404).end();
+  }
+});
 
 
 /**
@@ -101,6 +174,14 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.put('/api/geotags/:id', (req, res) => {
+  const updatedTag = store.updatedTagById(req.params.id, req.body);
+  if (updatedTag) {
+    res.status(200).json(updatedTag);
+  } else {
+    res.status(404).end();
+  }
+});
 
 
 /**
@@ -115,5 +196,14 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.delete('/api/geotags/:id', (req, res) => {
+  const tag = store.getGeoTagById(req.params.id);
+  if (tag) {
+    store.removeGeoTag(tag.name);
+    res.json(tag);
+  } else {
+    res.status(404).end();
+  }
+});
 
 module.exports = router;

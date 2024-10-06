@@ -1,0 +1,45 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "VS1Lab_Pagination",
+    "collectionId": "e5c680a2-9423-43b6-a95c-5e8bffcc518e",
+    "dateExported": "2024-10-06T19:26:31.426Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "942c09ca-1ba0-4a52-82c2-320dfb0566b4",
+            "colId": "e5c680a2-9423-43b6-a95c-5e8bffcc518e",
+            "containerId": "",
+            "name": "Read",
+            "url": "http://localhost:3000/api/geotags?latitude=48.97505&longitude=8.31324&searchterm=Building&page=1",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-10-06T19:25:40.134Z",
+            "modified": "2024-10-06T19:25:47.201Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "latitude",
+                    "value": "48.97505",
+                    "isPath": false
+                },
+                {
+                    "name": "longitude",
+                    "value": "8.31324",
+                    "isPath": false
+                },
+                {
+                    "name": "searchterm",
+                    "value": "Building",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                }
+            ]
+        }
+    ],
+    "ref": "mr-1jIP9NtBp4ZHOAGKkUGiHOgNjwgosuwH4xgzy1rc6gLwmMCoakFth_qlExCbXTQYn5btCE9eJlnG9YRUk2w"
+}

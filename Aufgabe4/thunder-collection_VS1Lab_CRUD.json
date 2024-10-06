@@ -1,0 +1,122 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "VS1Lab_CRUD",
+    "collectionId": "bfe8be4b-8568-4f21-94b9-df05c723682e",
+    "dateExported": "2024-10-06T19:26:01.029Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "16787ff9-05c0-4c07-a143-1646f926a03b",
+            "colId": "bfe8be4b-8568-4f21-94b9-df05c723682e",
+            "containerId": "",
+            "name": "Read",
+            "url": "http://localhost:3000/api/geotags?latitude=48.97505&longitude=8.31324",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-10-06T19:20:16.783Z",
+            "modified": "2024-10-06T19:20:25.185Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "latitude",
+                    "value": "48.97505",
+                    "isPath": false
+                },
+                {
+                    "name": "longitude",
+                    "value": "8.31324",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "95b76da1-bbc0-4ac3-acbd-4fc693367e70",
+            "colId": "bfe8be4b-8568-4f21-94b9-df05c723682e",
+            "containerId": "",
+            "name": "Search",
+            "url": "http://localhost:3000/api/geotags?latitude=48.97505&longitude=8.31324&searchterm=#home",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-10-06T19:20:34.403Z",
+            "modified": "2024-10-06T19:20:41.379Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "latitude",
+                    "value": "48.97505",
+                    "isPath": false
+                },
+                {
+                    "name": "longitude",
+                    "value": "8.31324",
+                    "isPath": false
+                },
+                {
+                    "name": "searchterm",
+                    "value": "#home",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "25747dff-9613-4d86-902d-3d466095541c",
+            "colId": "bfe8be4b-8568-4f21-94b9-df05c723682e",
+            "containerId": "",
+            "name": "Create",
+            "url": "http://localhost:3000/api/geotags",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-10-06T19:21:11.977Z",
+            "modified": "2024-10-06T19:24:28.093Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"latitude\": 48.97505,\n  \"longitude\": 8.31324,\n  \"name\": \"My Home\",\n  \"hashtag\": \"#home\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "e216c63b-bbc0-460a-a520-5b1e548bf997",
+            "colId": "bfe8be4b-8568-4f21-94b9-df05c723682e",
+            "containerId": "",
+            "name": "Find one",
+            "url": "http://localhost:3000/api/geotags/11",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-10-06T19:22:57.139Z",
+            "modified": "2024-10-06T19:23:04.980Z",
+            "headers": []
+        },
+        {
+            "_id": "60a373a7-7698-4043-8881-c4f79a65b994",
+            "colId": "bfe8be4b-8568-4f21-94b9-df05c723682e",
+            "containerId": "",
+            "name": "Update",
+            "url": "http://localhost:3000/api/geotags/11",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2024-10-06T19:23:16.763Z",
+            "modified": "2024-10-06T19:24:21.311Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Castle 2\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "05021116-f167-4eba-8bf3-7aa5ae2781d1",
+            "colId": "bfe8be4b-8568-4f21-94b9-df05c723682e",
+            "containerId": "",
+            "name": "Delete",
+            "url": "http://localhost:3000/api/geotags/11",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-10-06T19:24:03.022Z",
+            "modified": "2024-10-06T19:24:15.354Z",
+            "headers": []
+        }
+    ],
+    "ref": "2q6_XQcT9N_CoUDQ3zHEeT_QZ3rkfttNOL0iOhzcEotoxLmtzXwS0OeFlr2DCnMo5FTIgFVP_OTqDZilkDUEEA"
+}
