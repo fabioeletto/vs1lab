@@ -30,6 +30,13 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
+const GeoTagExamples = require('../models/geotag-examples');
+
+const store = new GeoTagStore();
+GeoTagExamples.tagList.forEach(([name, latitude, longitude, hashtag]) =>
+  store.addGeoTag(new GeoTag(latitude, longitude, name, hashtag))
+);
+const DEFAULT_RADIUS = 0.1;
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -41,8 +48,8 @@ const GeoTagStore = require('../models/geotag-store');
  */
 
 // TODO: extend the following route example if necessary
-router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+router.get('/', (_, res) => {
+  res.render('index', { tagList: [], latitude: "", longitude: "" });
 });
 
 /**
@@ -61,6 +68,16 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post("/tagging", (req, res) => {
+  const { name, hashtag, latitude, longitude } = req.body;
+  store.addGeoTag(new GeoTag(latitude, longitude, name, hashtag));
+  const tags = store.getNearbyGeoTags(latitude, longitude, DEFAULT_RADIUS);
+  res.render("index", {
+    tagList: tags,
+    latitude: latitude,
+    longitude: longitude,
+  });
+});
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -79,5 +96,17 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post("/discovery", (req, res) => {
+  const { searchTerm, hiddenLatitude, hiddenLongitude } = req.body;
+  const tags = searchTerm !== ""
+    ? store.searchNearbyGeoTags(hiddenLatitude, hiddenLongitude, DEFAULT_RADIUS, searchTerm)
+    : store.getNearbyGeoTags(hiddenLatitude, hiddenLongitude, DEFAULT_RADIUS);
+
+  return res.render("index", {
+    tagList: tags,
+    latitude: hiddenLatitude,
+    longitude: hiddenLongitude,
+  });
+});
 
 module.exports = router;

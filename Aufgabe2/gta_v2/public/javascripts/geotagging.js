@@ -104,7 +104,7 @@ class MapManager {
             .bindPopup("Your Location")
             .addTo(this.#markers);
         for (const tag of tags) {
-            L.marker([tag.location.latitude,tag.location.longitude])
+            L.marker([tag.latitude,tag.longitude])
                 .bindPopup(tag.name)
                 .addTo(this.#markers);  
         }
@@ -119,12 +119,12 @@ class MapManager {
 // ... your code here ...
 function updateLocation() {
     LocationHelper.findLocation(({latitude, longitude}) => {
-        document.getElementById("tag-latitude").value = latitude;
-        document.getElementById("tag-longitude").value = longitude;
-        document.getElementById("discovery-hidden-latitude").value = latitude;
-        document.getElementById("discovery-hidden-longitude").value = longitude;
+        document.getElementById("latitude").value = latitude;
+        document.getElementById("longitude").value = longitude;
+        document.getElementById("hiddenLatitude").value = latitude;
+        document.getElementById("hiddenLongitude").value = longitude;
 
-        const discoveryMapContainer = document.getElementsByClassName('discovery__map')[0];
+        const discoveryMapContainer = document.getElementById('map');
         Array.from(discoveryMapContainer.children).forEach(child => {
             child.remove();
         });

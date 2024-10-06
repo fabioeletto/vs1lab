@@ -68,10 +68,10 @@
                     <!-- ... your code here ... -->
                     <fieldset>
                         <legend>Search</legend>
-                        <label for="discovery-filter">Search term or keywords:</label>
-                        <input type="text" id="discovery-filter" name="discovery-filter" placeholder="e.g Berlin" />
-                        <input type="hidden" id="discovery-hidden-latitude"/>
-                        <input type="hidden" id="discovery-hidden-longitude"/>
+                        <label for="searchTerm">Search term or keywords:</label>
+                        <input type="text" id="searchTerm" name="searchTerm" placeholder="e.g Berlin" />
+                        <input type="hidden" id="hiddenLatitude" name="hiddenLatitude" />
+                        <input type="hidden" id="hiddenLongitude" name="hiddenLongitude" />
                         <button type="submit">Search</button>
                     </fieldset>
 
@@ -86,7 +86,7 @@
                         </ul>
                     </div>
 
-                    <div class="discovery__map col-4" id="map">
+                    <div id="map" class="discovery__map col-4">
                         <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" />
                         <span>Result map</span>
                     </div>
