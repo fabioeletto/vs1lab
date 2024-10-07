@@ -68,7 +68,7 @@ async function updatePageContent(tagsResponse = null) {
 
 async function registerTaggingForm() {
     document
-        .getElementById("tagging-form")
+        .getElementById("tag-form")
         .addEventListener("submit", async (event) => {
             event.preventDefault();
             const requestData = {}
