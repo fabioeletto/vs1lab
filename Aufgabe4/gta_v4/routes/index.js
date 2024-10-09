@@ -175,7 +175,7 @@ router.get('/api/geotags/:id', (req, res) => {
 
 // TODO: ... your code here ...
 router.put('/api/geotags/:id', (req, res) => {
-  const updatedTag = store.updatedTagById(req.params.id, req.body);
+  const updatedTag = store.updateGeoTag(req.params.id, req.body);
   if (updatedTag) {
     res.status(200).json(updatedTag);
   } else {

@@ -33,7 +33,7 @@ class InMemoryGeoTagStore{
     }
 
     getGeoTagById(id) {
-        return this.#geotags.find((geotag) => geotag.id === id);
+        return this.#geotags.find((geotag) => geotag.id === +id);
     }
 
     addGeoTag(geotag) {
@@ -41,7 +41,7 @@ class InMemoryGeoTagStore{
     }
 
     updateGeoTag(id, {latitude, longitude, name, hashtag}) {
-        const index = this.#geotags.findIndex((tag) => tag.id === id);
+        const index = this.#geotags.findIndex((tag) => tag.id === +id);
         if(index === -1)
             return null;
         const updateGeotag = this.#geotags[index];
