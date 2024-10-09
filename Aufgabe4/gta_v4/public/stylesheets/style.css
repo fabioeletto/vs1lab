@@ -152,6 +152,10 @@ ul > li {
 
 /* ### TODO ### Styles for Header Component */
 
+#map { 
+  height: 500px;
+}
+
 /* ... your code here ... */
 header {
   background-color: var(--background-color);

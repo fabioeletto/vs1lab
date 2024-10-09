@@ -19,8 +19,8 @@ const mapManager = new MapManager();
  */
 // ... your code here ...
 function updateLocation() {
-    const latitude = document.getElementById("latitude").value;
-    const longitude = document.getElementById("longitude").value;
+    const latitude = document.getElementById("hiddenLatitude").value;
+    const longitude = document.getElementById("hiddenLongitude").value;
     const discoveryMapContainer = document.getElementById('map');
 
     if (latitude === "" || longitude === "") {
@@ -37,33 +37,36 @@ function updateLocation() {
     }
 
     mapManager.initMap(latitude, longitude);
-
     const tags = JSON.parse(discoveryMapContainer.dataset.tags);
     mapManager.updateMarkers(latitude, longitude, tags);
 }
 
 async function updatePageContent(tagsResponse = null) {
-    const mapManager = new MapManager();
-    const latitude = document.getElementById("latitude").value;
-    const longitude = document.getElementById("longitude").value;
-
     let data = tagsResponse;
-    if (data === null) {
-        const hiddenLatitude = document.getElementById("hiddenLatitude").value;
-        const hiddenLongitude = document.getElementById("hiddenLongitude").value;
 
+    const hiddenLatitude = document.getElementById("hiddenLatitude").value;
+    const hiddenLongitude = document.getElementById("hiddenLongitude").value;
+
+    if (data === null) {
         const queryParameters = new URLSearchParams();
         if (hiddenLatitude !== "")
             queryParameters.append("latitude", hiddenLatitude);
         if (hiddenLongitude !== "")
             queryParameters.append("longitude", hiddenLongitude);
-        if (searchTerm !== "")
-            queryParameters.append("searchTerm", searchTerm);
-        const geotagsResponse = fetch(`/api/geotags?${queryParameters.toString()}`);
+        queryParameters.append("searchTerm", "");
+        const geotagsResponse = await fetch(`/api/geotags?${queryParameters.toString()}`);
         data = await geotagsResponse.json();
     }
 
-    mapManager.updateMarkers(latitude, longitude, data);
+    const discoveryResultsElement = document.getElementById("discoveryResults");
+    discoveryResultsElement.innerHTML = "";
+    data.forEach(({ name, latitude, longitude, hashtag }) => {
+        const li = document.createElement("li");
+        li.innerHTML = `${name} (${latitude}, ${longitude}) ${hashtag}`;
+        discoveryResultsElement.appendChild(li);
+    });
+
+    mapManager.updateMarkers(hiddenLatitude, hiddenLongitude, data);
 }
 
 async function registerTaggingForm() {
@@ -79,7 +82,7 @@ async function registerTaggingForm() {
                 requestData["name"] = form.name.value;
                 requestData["hashtag"] = form.hashtag.value;
 
-                const response = fetch("/api/geotags", {
+                const response = await fetch("/api/geotags", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
